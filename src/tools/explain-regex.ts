@@ -1,0 +1,35 @@
+import { explainRegex } from "../engine/regex-explainer.js";
+
+interface ExplainRegexInput {
+  pattern: string;
+  flags?: string;
+}
+
+export function handleExplainRegex(input: ExplainRegexInput) {
+  const flags = input.flags ?? "";
+  const result = explainRegex(input.pattern, flags);
+
+  const tokenLines = result.tokens.map(
+    (t) => `  ${t.token} — ${t.description} [${t.category}]`
+  );
+
+  let text = `Regex breakdown for /${input.pattern}/${flags}:\n\n`;
+  text += tokenLines.join("\n");
+  text += `\n\n${result.summary}`;
+
+  if (result.flagDescriptions.length > 0) {
+    text += "\n\nFlags:";
+    for (const f of result.flagDescriptions) {
+      text += `\n  ${f.flag} — ${f.description}`;
+    }
+  }
+
+  return {
+    text,
+    json: {
+      __regexplayground__: true,
+      viewType: "explain" as const,
+      data: result,
+    },
+  };
+}

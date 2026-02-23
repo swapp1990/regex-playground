@@ -1,0 +1,42 @@
+{
+  "name": "regex-playground",
+  "version": "0.1.0",
+  "description": "Interactive regex playground MCP server with ext-apps View",
+  "type": "module",
+  "main": "./build/index.js",
+  "bin": {
+    "regex-playground": "./build/index.js"
+  },
+  "scripts": {
+    "build:view": "cross-env INPUT=mcp-app.html vite build",
+    "build": "npm run build:view && tsc && chmod 755 build/index.js",
+    "dev": "tsc --watch",
+    "serve": "node build/server-http.js"
+  },
+  "files": [
+    "build",
+    "dist"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "regex",
+    "playground",
+    "ai",
+    "claude"
+  ],
+  "author": "Impressions Agency",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.1.0",
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "cross-env": "^10.1.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-singlefile": "^2.3.0"
+  }
+}
